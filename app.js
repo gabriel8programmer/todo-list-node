@@ -2,18 +2,22 @@
 const express = require("express");
 const path = require("path");
 
-const checklists = require("./src/routes/checklists");
+const checkListRouter = require("./src/routes/checklist");
+const taskRouter = require("./src/routes/task");
 const rootRouter = require("./src/routes/index");
-require("./config/database");
 
 const methodOverride = require("method-override");
+
+require("./config/database");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method", {methods: ["GET", "POST"]}));
-app.use("/checklists", checklists);
+
+app.use("/checklists", checkListRouter);
+app.use("/checklists", taskRouter.checklistDependent);
 app.use("/", rootRouter);
 
 app.use(express.static(path.join(__dirname, "public")));

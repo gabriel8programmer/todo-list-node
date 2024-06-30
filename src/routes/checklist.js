@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-        const checklists = await Checklist.find({});
+        const checklists = await Checklist.find({}).populate("tasks");
         res.status(200).render("checklists/index", {checklists});
     } catch(error){
         res.status(500).render("pages/error", {error: "Erro ao exibir as listas!"});
@@ -24,7 +24,7 @@ router.get("/new", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        const checklist = await Checklist.findById(req.params.id);
+        const checklist = await Checklist.findById(req.params.id).populate("tasks");
         res.status(200).render("checklists/show", {checklist});
     } catch(error){
         res.status(422).render("pages/error", {error: "Erro ao exibir lista de tarefas!"});
