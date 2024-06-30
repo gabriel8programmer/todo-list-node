@@ -68,9 +68,9 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try{
         const checklist = await Checklist.findByIdAndDelete(req.params.id);
-        res.status(200).json(checklist);
+        res.redirect("/checklists");
     } catch(error){
-        res.status(422).json(error);
+        res.status(422).render("pages/error", {error: "Erro ao deletar a lista de tarefas!"});
     }
 });
 
