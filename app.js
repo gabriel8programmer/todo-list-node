@@ -26,6 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "src/views"));
 app.set("view engine", "ejs");
 
-app.listen(3000, ()=> {
-    console.log("Servidor rodando!");
+const port = 3000
+app.listen(port, ()=> {
+    console.log(`Servidor rodando em http://localhost:${port}`);
 });
